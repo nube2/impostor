@@ -1,0 +1,598 @@
+:root {
+  --ink: #171715;
+  --paper: #f5f0e6;
+  --coral: #f05d4f;
+  --yellow: #f5c84c;
+  --teal: #42b9ad;
+  --muted: #706e68;
+  --line: rgba(23, 23, 21, 0.18);
+  font-family: "DM Sans", sans-serif;
+  color: var(--ink);
+  background: var(--ink);
+  font-synthesis: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0;
+  display: grid;
+  place-items: center;
+  background-color: var(--ink);
+  background-image:
+    linear-gradient(rgba(23, 23, 21, 0.18), rgba(23, 23, 21, 0.18)),
+    url("assets/game-texture.png");
+  background-position: center;
+  background-size: cover;
+}
+
+button {
+  font: inherit;
+}
+
+button:focus-visible {
+  outline: 3px solid var(--teal);
+  outline-offset: 3px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.app-shell {
+  width: min(100%, 520px);
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: 28px clamp(22px, 6vw, 42px) 34px;
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
+  overflow: hidden;
+  position: relative;
+}
+
+.app-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.25;
+  background-image: url("assets/game-texture.png");
+  background-size: cover;
+  mix-blend-mode: multiply;
+}
+
+.brand,
+.screen {
+  position: relative;
+  z-index: 1;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.brand-mark {
+  width: 34px;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border: 2px solid var(--ink);
+  background: var(--yellow);
+  font-family: "Fugaz One", sans-serif;
+  font-size: 20px;
+  transform: rotate(-5deg);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.brand h1 {
+  margin: 0;
+  font-family: "Fugaz One", sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.screen {
+  flex: 1;
+  width: 100%;
+}
+
+.setup-screen {
+  padding-top: clamp(46px, 10vh, 96px);
+  display: flex;
+  flex-direction: column;
+}
+
+.intro h2,
+.handoff-view h2,
+.card-view h2,
+.ready-screen h2 {
+  margin: 5px 0 12px;
+  font-family: "Fugaz One", sans-serif;
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: 0;
+}
+
+.intro h2 {
+  max-width: 400px;
+  font-size: 58px;
+}
+
+.intro > p:last-child,
+.privacy-copy,
+.ready-screen > p {
+  max-width: 350px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--coral);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.setup-controls {
+  margin-top: auto;
+  padding: 26px 0 22px;
+  border-top: 1px solid var(--line);
+}
+
+.setup-controls label {
+  display: block;
+  margin-bottom: 13px;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.stepper {
+  height: 74px;
+  display: grid;
+  grid-template-columns: 74px 1fr 74px;
+  border: 2px solid var(--ink);
+  background: rgba(255, 255, 255, 0.45);
+  box-shadow: 5px 5px 0 var(--ink);
+}
+
+.stepper-button {
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font-size: 34px;
+  cursor: pointer;
+}
+
+.stepper-button:first-child {
+  border-right: 1px solid var(--line);
+}
+
+.stepper-button:last-child {
+  border-left: 1px solid var(--line);
+}
+
+.stepper-button:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+
+.player-count {
+  display: grid;
+  place-items: center;
+  font-family: "Fugaz One", sans-serif;
+  font-size: 34px;
+}
+
+.range-note {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  text-align: center;
+}
+
+.primary-button,
+.secondary-button {
+  width: 100%;
+  min-height: 56px;
+  padding: 14px 18px;
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 150ms ease, box-shadow 150ms ease, opacity 150ms ease;
+}
+
+.primary-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: var(--coral);
+  color: #fff;
+  box-shadow: 5px 5px 0 var(--ink);
+}
+
+.primary-button span {
+  font-size: 23px;
+  line-height: 1;
+}
+
+.secondary-button {
+  background: transparent;
+  color: var(--ink);
+}
+
+.rules-button {
+  margin-top: 13px;
+}
+
+.primary-button:not(:disabled):active,
+.secondary-button:not(:disabled):active {
+  transform: translate(3px, 3px);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+.primary-button:disabled {
+  background: #aaa79f;
+  box-shadow: none;
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.game-screen {
+  padding-top: 22px;
+}
+
+.game-topbar {
+  min-height: 42px;
+  display: grid;
+  grid-template-columns: 42px 1fr 42px;
+  align-items: center;
+  gap: 12px;
+}
+
+.icon-button {
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.progress-dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.progress-dot {
+  width: 8px;
+  height: 8px;
+  border: 1px solid var(--ink);
+  background: transparent;
+}
+
+.progress-dot.done {
+  background: var(--teal);
+}
+
+.progress-dot.current {
+  background: var(--coral);
+  transform: rotate(45deg);
+}
+
+.progress-count {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+  text-align: right;
+}
+
+.handoff-view,
+.ready-screen {
+  min-height: calc(100% - 42px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.handoff-view h2,
+.ready-screen h2 {
+  font-size: 48px;
+}
+
+.privacy-symbol,
+.final-symbol {
+  width: min(58vw, 230px);
+  aspect-ratio: 1;
+  margin: 30px auto;
+  display: grid;
+  place-items: center;
+  border: 3px solid var(--ink);
+  background: var(--yellow);
+  box-shadow: 10px 10px 0 var(--ink);
+  transform: rotate(-3deg);
+}
+
+.privacy-symbol span,
+.final-symbol {
+  font-family: "Fugaz One", sans-serif;
+  font-size: 92px;
+}
+
+.handoff-view .primary-button {
+  margin-top: 36px;
+}
+
+.card-view {
+  padding-top: clamp(28px, 6vh, 54px);
+  text-align: center;
+}
+
+.card-view h2 {
+  font-size: 30px;
+}
+
+.secret-card {
+  width: min(76vw, 310px);
+  aspect-ratio: 0.69;
+  margin: clamp(26px, 5vh, 42px) auto 24px;
+  display: block;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  perspective: 1100px;
+  cursor: pointer;
+}
+
+.card-inner {
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 500ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.secret-card.is-flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid var(--ink);
+  backface-visibility: hidden;
+  box-shadow: 9px 9px 0 var(--ink);
+}
+
+.card-back {
+  gap: 20px;
+  background: var(--teal);
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent 0,
+    transparent 16px,
+    rgba(23, 23, 21, 0.1) 16px,
+    rgba(23, 23, 21, 0.1) 18px
+  );
+  font-weight: 700;
+}
+
+.card-pattern {
+  width: 116px;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border: 3px solid var(--ink);
+  background: var(--paper);
+  font-family: "Fugaz One", sans-serif;
+  font-size: 68px;
+  transform: rotate(4deg);
+}
+
+.card-front {
+  padding: 24px;
+  background: #fffdf7;
+  transform: rotateY(180deg);
+}
+
+.card-front.impostor {
+  background: var(--coral);
+  color: #fff;
+}
+
+.role-label,
+.role-hint {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.role-hint {
+  color: var(--muted);
+  text-transform: none;
+}
+
+.impostor .role-hint {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.card-front strong {
+  max-width: 100%;
+  margin: 16px 0;
+  font-family: "Fugaz One", sans-serif;
+  font-size: 46px;
+  font-weight: 400;
+  line-height: 1.05;
+  overflow-wrap: anywhere;
+}
+
+.card-view .secondary-button {
+  margin-bottom: 12px;
+}
+
+.ready-screen {
+  padding-top: 20px;
+}
+
+.ready-screen .final-symbol {
+  margin-top: 0;
+  background: var(--teal);
+}
+
+.round-actions {
+  width: 100%;
+  margin-top: 42px;
+}
+
+.round-actions .secondary-button {
+  margin-top: 13px;
+}
+
+.rules-dialog {
+  width: min(calc(100% - 36px), 470px);
+  max-height: calc(100dvh - 48px);
+  padding: clamp(24px, 6vw, 36px);
+  border: 3px solid var(--ink);
+  border-radius: 0;
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 10px 10px 0 var(--ink);
+}
+
+.rules-dialog::backdrop {
+  background: rgba(23, 23, 21, 0.72);
+}
+
+.rules-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.rules-dialog h2 {
+  margin: 4px 0 20px;
+  font-family: "Fugaz One", sans-serif;
+  font-size: 42px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.rules-dialog h3 {
+  margin: 26px 0 10px;
+  font-family: "Fugaz One", sans-serif;
+  font-size: 22px;
+  font-weight: 400;
+}
+
+.rules-dialog ul {
+  margin: 0;
+  padding-left: 22px;
+}
+
+.rules-dialog li {
+  padding-left: 4px;
+  line-height: 1.5;
+}
+
+.rules-dialog li + li {
+  margin-top: 10px;
+}
+
+@media (min-width: 521px) {
+  body {
+    padding: 28px;
+  }
+
+  .app-shell {
+    min-height: min(840px, calc(100vh - 56px));
+    border: 3px solid var(--ink);
+    box-shadow: 14px 14px 0 rgba(0, 0, 0, 0.45);
+  }
+}
+
+@media (max-height: 720px) {
+  .app-shell {
+    padding-top: 20px;
+    padding-bottom: 24px;
+  }
+
+  .setup-screen {
+    padding-top: 28px;
+  }
+
+  .intro h2 {
+    font-size: 42px;
+  }
+
+  .privacy-symbol {
+    width: 150px;
+    margin: 20px auto;
+  }
+
+  .privacy-symbol span {
+    font-size: 68px;
+  }
+
+  .secret-card {
+    width: min(51vw, 225px);
+    margin: 15px auto 16px;
+  }
+
+  .card-view {
+    padding-top: 14px;
+  }
+
+  .card-view h2 {
+    margin-bottom: 4px;
+  }
+}
+
+@media (max-width: 400px) {
+  .intro h2 {
+    font-size: 46px;
+  }
+
+  .handoff-view h2,
+  .ready-screen h2 {
+    font-size: 40px;
+  }
+
+  .card-front strong {
+    font-size: 38px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

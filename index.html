@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#171715" />
+    <meta
+      name="description"
+      content="Impostor: un juego de palabras para jugar con amigos en un solo teléfono."
+    />
+    <title>Impostor en North York</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fugaz+One&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="brand">
+        <span class="brand-mark" aria-hidden="true">?</span>
+        <h1>IMPOSTOR EN NORTH YORK</h1>
+      </header>
+
+      <section
+        id="setup-screen"
+        class="screen setup-screen"
+        aria-labelledby="setup-title"
+      >
+        <div class="intro">
+          <p class="eyebrow">Juego secreto</p>
+          <h2 id="setup-title">Encuentra al impostor.</h2>
+          <p>Todos conocen la palabra. Bueno, casi todos.</p>
+        </div>
+
+        <div class="setup-controls">
+          <label for="player-count">Número de jugadores</label>
+          <div class="stepper">
+            <button
+              id="decrease-players"
+              class="stepper-button"
+              type="button"
+              aria-label="Menos jugadores"
+            >
+              −
+            </button>
+            <output id="player-count" class="player-count" aria-live="polite"
+              >4</output
+            >
+            <button
+              id="increase-players"
+              class="stepper-button"
+              type="button"
+              aria-label="Más jugadores"
+            >
+              +
+            </button>
+          </div>
+          <p class="range-note">De 3 a 12 jugadores</p>
+        </div>
+
+        <button id="start-game" class="primary-button" type="button">
+          Empezar partida
+          <span aria-hidden="true">→</span>
+        </button>
+        <button
+          id="show-rules"
+          class="secondary-button rules-button"
+          type="button"
+        >
+          Ver reglas
+        </button>
+      </section>
+
+      <section
+        id="game-screen"
+        class="screen game-screen"
+        aria-labelledby="player-heading"
+        hidden
+      >
+        <div class="game-topbar">
+          <button
+            id="quit-game"
+            class="icon-button"
+            type="button"
+            aria-label="Volver al inicio"
+            title="Volver al inicio"
+          >
+            ×
+          </button>
+          <div
+            id="progress-dots"
+            class="progress-dots"
+            aria-label="Progreso de jugadores"
+          ></div>
+          <span id="progress-count" class="progress-count">1 / 4</span>
+        </div>
+
+        <div id="handoff-view" class="handoff-view">
+          <p class="eyebrow">Pasa el iPad a</p>
+          <h2 id="player-heading">Jugador 1</h2>
+          <div class="privacy-symbol" aria-hidden="true">
+            <span>1</span>
+          </div>
+          <p class="privacy-copy">Que nadie más mire la pantalla.</p>
+          <button id="ready-button" class="primary-button" type="button">
+            Estoy listo
+          </button>
+        </div>
+
+        <div id="card-view" class="card-view" hidden>
+          <div>
+            <p class="eyebrow">
+              Jugador <span id="card-player-number">1</span>
+            </p>
+            <h2>Tu carta secreta</h2>
+          </div>
+
+          <button
+            id="secret-card"
+            class="secret-card"
+            type="button"
+            aria-label="Mostrar carta"
+            aria-pressed="false"
+          >
+            <span class="card-inner">
+              <span class="card-face card-back">
+                <span class="card-pattern" aria-hidden="true">?</span>
+                <span>Toca para mostrar</span>
+              </span>
+              <span class="card-face card-front">
+                <span id="role-label" class="role-label">Tu palabra es</span>
+                <strong id="secret-word">PLAYA</strong>
+                <span id="role-hint" class="role-hint">Memorízala bien</span>
+              </span>
+            </span>
+          </button>
+
+          <button id="flip-button" class="secondary-button" type="button">
+            Mostrar carta
+          </button>
+          <button
+            id="next-player"
+            class="primary-button"
+            type="button"
+            disabled
+          >
+            Oculta la carta primero
+          </button>
+        </div>
+      </section>
+
+      <section
+        id="ready-screen"
+        class="screen ready-screen"
+        aria-labelledby="ready-title"
+        hidden
+      >
+        <div class="final-symbol" aria-hidden="true">!</div>
+        <p class="eyebrow">Todos están listos</p>
+        <h2 id="ready-title">¡Empieza la conversación!</h2>
+        <p>
+          Da pistas sobre la palabra sin decirla. El impostor intentará
+          mezclarse con el grupo.
+        </p>
+        <div class="round-actions">
+          <button id="new-round" class="primary-button" type="button">
+            Nueva ronda
+          </button>
+          <button id="change-players" class="secondary-button" type="button">
+            Cambiar jugadores
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <dialog
+      id="rules-dialog"
+      class="rules-dialog"
+      aria-labelledby="rules-title"
+    >
+      <div class="rules-header">
+        <div>
+          <p class="eyebrow">Cómo jugar</p>
+          <h2 id="rules-title">Reglas</h2>
+        </div>
+        <button
+          id="close-rules"
+          class="icon-button"
+          type="button"
+          aria-label="Cerrar reglas"
+        >
+          ×
+        </button>
+      </div>
+
+      <ul>
+        <li>Todos conocen la palabra excepto una persona, el impostor.</li>
+        <li>Elige a una persona y hazle una pregunta sobre la palabra.</li>
+        <li>La persona debe responder con sinceridad: Sí, Quizás o No.</li>
+      </ul>
+
+      <h3>Puntuación</h3>
+      <ul>
+        <li>
+          La primera persona que adivine quién es el impostor gana 2 puntos.
+        </li>
+        <li>Todos los jugadores que estén de acuerdo ganan 1 punto.</li>
+        <li>
+          El impostor gana 4 puntos si consigue que el grupo elija a otra
+          persona.
+        </li>
+      </ul>
+    </dialog>
+
+    <script src="script.js"></script>
+  </body>
+</html>
