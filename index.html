@@ -106,7 +106,7 @@
           </div>
           <p class="privacy-copy">Que nadie más mire la pantalla.</p>
           <button id="ready-button" class="primary-button" type="button">
-            Estoy listo
+            Ver mi carta
           </button>
         </div>
 
@@ -118,17 +118,11 @@
             <h2>Tu carta secreta</h2>
           </div>
 
-          <button
-            id="secret-card"
-            class="secret-card"
-            type="button"
-            aria-label="Mostrar carta"
-            aria-pressed="false"
-          >
+          <div id="secret-card" class="secret-card" aria-live="polite">
             <span class="card-inner">
               <span class="card-face card-back">
                 <span class="card-pattern" aria-hidden="true">?</span>
-                <span>Toca para mostrar</span>
+                <span>Preparando tu carta...</span>
               </span>
               <span class="card-face card-front">
                 <span id="role-label" class="role-label">Tu palabra es</span>
@@ -136,18 +130,10 @@
                 <span id="role-hint" class="role-hint">Memorízala bien</span>
               </span>
             </span>
-          </button>
+          </div>
 
-          <button id="flip-button" class="secondary-button" type="button">
-            Mostrar carta
-          </button>
-          <button
-            id="next-player"
-            class="primary-button"
-            type="button"
-            disabled
-          >
-            Oculta la carta primero
+          <button id="next-player" class="primary-button" type="button">
+            Ocultar y pasar
           </button>
         </div>
       </section>

@@ -361,7 +361,6 @@ button:focus-visible {
   border: 0;
   background: transparent;
   perspective: 1100px;
-  cursor: pointer;
 }
 
 .card-inner {
@@ -449,10 +448,6 @@ button:focus-visible {
   font-weight: 400;
   line-height: 1.05;
   overflow-wrap: anywhere;
-}
-
-.card-view .secondary-button {
-  margin-bottom: 12px;
 }
 
 .ready-screen {

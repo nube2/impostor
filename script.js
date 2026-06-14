@@ -65,7 +65,6 @@ const state = {
   currentPlayer: 0,
   impostorIndex: 0,
   word: "",
-  hasRevealed: false,
 };
 
 const elements = {
@@ -93,7 +92,6 @@ const elements = {
   roleLabel: document.querySelector("#role-label"),
   secretWord: document.querySelector("#secret-word"),
   roleHint: document.querySelector("#role-hint"),
-  flipButton: document.querySelector("#flip-button"),
   nextPlayer: document.querySelector("#next-player"),
   newRound: document.querySelector("#new-round"),
   changePlayers: document.querySelector("#change-players"),
@@ -149,12 +147,10 @@ function preparePlayer() {
   elements.handoffView.hidden = false;
   elements.cardView.hidden = true;
   elements.secretCard.classList.remove("is-flipped");
-  elements.secretCard.setAttribute("aria-pressed", "false");
-  elements.secretCard.setAttribute("aria-label", "Mostrar carta");
-  elements.flipButton.textContent = "Mostrar carta";
-  elements.nextPlayer.disabled = true;
-  elements.nextPlayer.textContent = "Oculta la carta primero";
-  state.hasRevealed = false;
+  elements.nextPlayer.textContent =
+    state.currentPlayer === state.playerCount - 1
+      ? "Ocultar y empezar"
+      : `Ocultar y pasar al jugador ${playerNumber + 1}`;
   buildProgress();
 }
 
@@ -170,31 +166,6 @@ function setCardContent() {
     : "Memorízala bien";
 }
 
-function toggleCard() {
-  const willShow = !elements.secretCard.classList.contains("is-flipped");
-  elements.secretCard.classList.toggle("is-flipped", willShow);
-  elements.secretCard.setAttribute("aria-pressed", String(willShow));
-  elements.secretCard.setAttribute(
-    "aria-label",
-    willShow ? "Ocultar carta" : "Mostrar carta",
-  );
-  elements.flipButton.textContent = willShow
-    ? "Ocultar carta"
-    : "Mostrar carta";
-
-  if (willShow) {
-    state.hasRevealed = true;
-    elements.nextPlayer.disabled = true;
-    elements.nextPlayer.textContent = "Oculta la carta primero";
-  } else if (state.hasRevealed) {
-    elements.nextPlayer.disabled = false;
-    elements.nextPlayer.textContent =
-      state.currentPlayer === state.playerCount - 1
-        ? "Terminar reparto"
-        : "Siguiente jugador";
-  }
-}
-
 function startRound() {
   state.currentPlayer = 0;
   state.impostorIndex = randomIndex(state.playerCount);
@@ -207,15 +178,13 @@ function showPlayerCard() {
   setCardContent();
   elements.handoffView.hidden = true;
   elements.cardView.hidden = false;
-  elements.secretCard.focus();
+  void elements.secretCard.offsetWidth;
+  elements.secretCard.classList.add("is-flipped");
+  elements.nextPlayer.focus();
 }
 
 function advancePlayer() {
-  if (
-    !state.hasRevealed ||
-    elements.secretCard.classList.contains("is-flipped")
-  )
-    return;
+  elements.secretCard.classList.remove("is-flipped");
 
   if (state.currentPlayer === state.playerCount - 1) {
     showScreen(elements.readyScreen);
@@ -239,8 +208,6 @@ elements.rulesDialog.addEventListener("click", (event) => {
   if (event.target === elements.rulesDialog) elements.rulesDialog.close();
 });
 elements.readyButton.addEventListener("click", showPlayerCard);
-elements.secretCard.addEventListener("click", toggleCard);
-elements.flipButton.addEventListener("click", toggleCard);
 elements.nextPlayer.addEventListener("click", advancePlayer);
 elements.newRound.addEventListener("click", startRound);
 elements.changePlayers.addEventListener("click", () =>
