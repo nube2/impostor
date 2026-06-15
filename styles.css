@@ -450,6 +450,14 @@ button:focus-visible {
   overflow-wrap: anywhere;
 }
 
+.word-translation {
+  margin-bottom: 16px;
+  font-size: clamp(1rem, 3vw, 1.35rem);
+  font-weight: 600;
+  line-height: 1.2;
+  opacity: 0.72;
+}
+
 .ready-screen {
   padding-top: 20px;
 }
